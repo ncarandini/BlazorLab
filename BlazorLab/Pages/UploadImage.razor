@@ -1,0 +1,71 @@
+﻿@page "/UploadImage"
+
+@using System.IO
+@using BlazorLab.Services
+
+@inject LabApiService LabApiService
+
+<h3>UploadImage</h3>
+
+<div class="card w-25 mb-2" >
+    @if (labImage != null)
+    {
+        <img class="card-img-top" src="@String.Format($"data:image/{labImage.ContentType};base64,{Convert.ToBase64String(labImage.Content)}")" alt="Card image cap">
+        <div class="card-body">
+            @if (labImage.Id == Guid.Empty)
+            {
+                <h4 class="card-title">Immagine caricata in memoria</h4>
+            }
+            else
+            {
+                <h4 class="card-title">Immagine salvata sul server</h4>
+            }
+
+            <p class="card-text">L'immagine occupa @labImage.ContentSize.ToString("N0") Bytes.</p>
+
+            @if (labImage.Id == Guid.Empty)
+            {
+                <button class="btn btn-primary" @onclick="SaveUploadfile">Salva</button>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="card-body pb-3" />
+    }
+
+    <div class="card-footer">
+        <InputFile OnChange="HandleSelection" />
+    </div>
+</div>
+
+
+@code {
+    IFileListEntry fileEntry { get; set; }
+    LabImage labImage { get; set; }
+
+    async Task HandleSelection(IFileListEntry[] files)
+    {
+        labImage = null;
+
+        fileEntry = files.FirstOrDefault();
+        if (fileEntry != null)
+        {
+            using var ms = new MemoryStream();
+            await fileEntry.Data.CopyToAsync(ms);
+            labImage = new LabImage
+            {
+                Id = Guid.Empty,
+                Title = fileEntry.Name,
+                ContentType = fileEntry.Type,
+                ContentSize = fileEntry.Size,
+                Content = ms.ToArray()
+            };
+        }
+    }
+
+    async Task SaveUploadfile()
+    {
+        labImage = await LabApiService.PostImageAsync(labImage);
+    }
+}

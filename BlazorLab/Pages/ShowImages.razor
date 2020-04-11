@@ -1,0 +1,47 @@
+﻿@page "/ShowImages"
+
+@using BlazorLab.Services
+
+@inject LabApiService LabApiService
+
+<h3>Show images</h3>
+
+@if (LabImages == null)
+{
+    <h4>Caricamento...</h4>
+}
+else if (LabImages.Count == 0)
+{
+    <h4>Nessuna immagine presente.</h4>
+}
+else
+{
+    for (int i = 0; i < LabImages.Count; i += imagesPerRow)
+    {
+        <div class="card-deck">
+
+            @for(int j = i; j < i + imagesPerRow && j < LabImages.Count; j++)
+            {
+                <div class="card mb-2">
+                    <img class="card-img-top" src="@String.Format($"data:image/{LabImages[i].ContentType};base64,{Convert.ToBase64String(LabImages[j].Content)}")" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@LabImages[j].Title</h5>
+                        <p class="card-text">Bytes: @LabImages[j].ContentSize.ToString("N0")</p>
+                    </div>
+                </div>
+            }
+
+        </div>
+    }
+}
+
+@code{
+    private int imagesPerRow = 4;
+
+    public List<LabImage> LabImages { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        LabImages = await LabApiService.GetImagesAsync();
+    }
+}

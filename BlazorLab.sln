@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorLab", "BlazorLab\BlazorLab.csproj", "{50B14F04-63B7-495E-9DB9-E6AF2024AB65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiLab", "ApiLab\ApiLab.csproj", "{CE508B27-C052-4B11-9319-E33053FF9A03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50B14F04-63B7-495E-9DB9-E6AF2024AB65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50B14F04-63B7-495E-9DB9-E6AF2024AB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50B14F04-63B7-495E-9DB9-E6AF2024AB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50B14F04-63B7-495E-9DB9-E6AF2024AB65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE508B27-C052-4B11-9319-E33053FF9A03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE508B27-C052-4B11-9319-E33053FF9A03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE508B27-C052-4B11-9319-E33053FF9A03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE508B27-C052-4B11-9319-E33053FF9A03}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B60DF579-FCC7-4DAE-97A6-8CC89476DC75}
+	EndGlobalSection
+EndGlobal

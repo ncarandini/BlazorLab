@@ -1,0 +1,52 @@
+﻿@page "/EditTicket"
+
+@using System.Globalization
+
+    <h2> A little experiment on using a InputText component to act as a "globalization friendly" input number form field</h2>
+
+<h3>Edit Ticket # @Ticket.Id</h3>
+
+<EditForm Model="Ticket" OnSubmit="Save">
+
+    <InputText @bind-Value="Ticket.Title" />
+
+    <InputNumber @bind-Value="Ticket.Price" />
+
+    <InputDate @bind-Value="Ticket.Date" />
+
+    <button class="btn btn-primary">Save</button>
+
+    <div class="form-group">
+        <label for="Price">Price:</label>
+        <InputText id="Price" @bind-Value="PriceAsString" class="form-control" />
+    </div>
+</EditForm>
+
+@code {
+
+    Ticket Ticket = new Ticket
+    {
+        Id = Guid.NewGuid(),
+        Title = "Fight FCO-SEA",
+        Price = 836M,
+        Date = DateTime.Now
+    };
+
+    string PriceAsString
+    {
+        get { return Ticket.Price.ToString("#,##0.00", CultureInfo.CurrentCulture); }
+        set
+        {
+            if (Decimal.TryParse(value, NumberStyles.Number,
+                CultureInfo.CurrentCulture,out decimal result))
+            {
+                Ticket.Price = result;
+            }
+        }
+    }
+
+    private void Save()
+    {
+        // ...
+    }
+}
